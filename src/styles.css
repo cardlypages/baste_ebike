@@ -94,7 +94,7 @@ main {
   object-position: center;
   border-radius: 50%;
   background: #fff;
-  border: 1px solid #e33a32;
+  border: 1px solid #ffdd3d;
   padding: 2px;
 }
 
@@ -1779,7 +1779,7 @@ h2 em {
   gap: 20px;
   align-items: center;
   padding: 18px;
-  background: #151515;
+  background: #fff;
   border: 1px solid rgba(242, 197, 26, 0.25);
   border-radius: 14px;
 }
@@ -1800,7 +1800,7 @@ h2 em {
   font-size: 9px;
   letter-spacing: 0.14em;
   font-weight: 800;
-  color: #ffe15a;
+  color: #9a7000;
 }
 .poster-lightbox-info h2 {
   font-size: 26px;
@@ -1940,15 +1940,15 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  color: #ffe15a;
-  border: 1px solid rgba(242, 197, 26, 0.3);
+  color: #102746;
+  border: 1px solid #102746;
   border-radius: 7px;
   padding: 10px 13px;
   font-size: 12px;
   font-weight: 700;
 }
 .topbar-contact span {
-  color: #fff;
+  color: #9a7000;
 }
 .tab-panel {
   height: calc(100dvh - 150px);
@@ -2411,14 +2411,14 @@ main {
   background: #fff;
   border-radius: 50%;
   padding: 2px;
-  border: 1px solid #e33a32;
+  border: 1px solid #102746;
 }
 .loader-ring {
   position: absolute;
   inset: 0;
   border: 2px solid rgba(242, 197, 26, 0.16);
   border-top-color: #f2c51a;
-  border-right-color: #e33a32;
+  border-right-color: #102746;
   border-radius: 50%;
   animation: basteSpin 0.8s linear infinite;
 }
@@ -2484,5 +2484,389 @@ main {
   }
   .brand-loader {
     animation: none;
+  }
+}
+
+/* BASTE high-contrast theme refinement
+   Append this AFTER the previous baste-silver-blue-yellow-theme.css block
+   at the very bottom of src/styles.css. Keeps the existing layout intact. */
+
+:root {
+  --navy: #102746;
+  --navy-deep: #091a30;
+  --navy-mid: #1b3c65;
+  --yellow: #f5c400;
+  --yellow-bright: #ffd928;
+  --gold: #a77b00;
+  --gold-bright: #b88600;
+  --muted: #52647a;
+  --line: rgba(16, 39, 70, 0.2);
+}
+
+/* Keep primary text dark enough on the pale page background. */
+html,
+body,
+main,
+.tab-panel,
+.hero-copy,
+.stats,
+.offer-section,
+.location-section,
+.connect,
+.footer {
+  color: #102746;
+}
+body {
+  background: linear-gradient(145deg, #f8faff 0%, #edf2f8 52%, #e5ebf4 100%);
+}
+
+h1,
+h2,
+h3,
+.hero h1,
+.stats h2,
+.section-heading h2,
+.location-copy h2,
+.connect h2,
+.catalog-modal-header h2,
+.brand-lockup strong {
+  color: #102746;
+}
+
+h1 em,
+h2 em,
+.stats-intro h2 em,
+.section-heading h2 em,
+.location-copy h2 em,
+.connect h2 em,
+.catalog-modal-header h2 em {
+  color: #9a7000;
+}
+
+.eyebrow,
+.brand-lockup small,
+.catalog-kicker,
+.map-label small,
+.qr-area > span,
+.product-kicker {
+  color: #866300;
+}
+
+.hero-copy .eyebrow::after {
+  background: #f0bd00;
+}
+.pulse-dot {
+  background: #eab800;
+  box-shadow: 0 0 0 5px rgba(234, 184, 0, 0.2);
+}
+
+.hero-lead,
+.section-heading > p,
+.offer-card p,
+.connect-copy p,
+.location-line,
+.muted,
+.social-proof small,
+.stat-item p,
+.stat-item small,
+.catalog-modal-header p,
+.catalog-banner p {
+  color: #4d6078;
+}
+
+/* Make outlined buttons and phone cards clearly distinguishable. */
+.btn-outline {
+  color: #102746;
+  border: 1px solid #b9c5d5;
+  background: #fff;
+}
+.btn-outline:hover {
+  color: #091a30;
+  background: #f0f4fa;
+  border-color: #1b3c65;
+}
+.btn-gold {
+  color: #091a30;
+  background: linear-gradient(135deg, #ffe45c 0%, #f5c400 100%);
+  border: 1px solid #e4b600;
+  box-shadow: 0 5px 14px rgba(154, 112, 0, 0.17);
+}
+.btn-gold:hover {
+  background: linear-gradient(135deg, #ffed91, #ffd928);
+}
+.btn-dark {
+  color: #fff;
+  background: #102746;
+}
+.btn-dark:hover {
+  background: #1b3c65;
+}
+
+.phone-strip > a {
+  background: #fff;
+  border-color: #d0d9e5;
+}
+.phone-strip > a > span {
+  background: #f5c400;
+  color: #102746;
+}
+.phone-strip small {
+  color: #5a6d84;
+}
+.phone-strip strong {
+  color: #102746;
+}
+.proof-avatars span {
+  background: #e7edf5;
+  border-color: #b6c4d6;
+  color: #102746;
+}
+
+/* Stronger panel edges and visible body copy on cards. */
+.offer-card,
+.product-card,
+.connect-panel,
+.catalog-menu-footer,
+.notice {
+  border-color: #cbd5e2;
+  box-shadow: 0 8px 24px rgba(16, 39, 70, 0.08);
+}
+.offer-card {
+  background: linear-gradient(145deg, #fff, #f0f4f9);
+}
+.offer-card p,
+.product-info p {
+  color: #4d6078;
+}
+.offer-card > a {
+  color: #785800;
+}
+.offer-icon {
+  color: #785800;
+  background: #fff4bf;
+  border-color: #e5c84e;
+}
+.card-index {
+  color: #5d6d81;
+}
+.notice {
+  background: #f2f5fa;
+  color: #455971;
+}
+.notice svg {
+  color: #806000;
+}
+
+/* Product poster captions: preserve readability over busy promotional images. */
+.catalog-menu-tile {
+  border: 1px solid #b9c6d6;
+  box-shadow: 0 6px 18px rgba(16, 39, 70, 0.12);
+}
+.menu-tile-caption {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(7, 20, 38, 0.78) 28%,
+    rgba(7, 20, 38, 0.97) 100%
+  );
+  color: #fff;
+}
+.menu-tile-caption strong {
+  color: #fff;
+}
+.menu-tile-caption b {
+  color: #ffdc35;
+}
+.menu-tile-caption small {
+  color: #f4f7fb;
+}
+.more-products-tile > img {
+  filter: brightness(0.27) saturate(0.75);
+}
+.more-products-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(7, 26, 49, 0.68),
+    rgba(16, 39, 70, 0.72)
+  );
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.65);
+}
+.more-products-overlay strong {
+  color: #ffdc35;
+  font-size: clamp(50px, 7vw, 78px);
+}
+.more-products-overlay b {
+  color: #fff;
+}
+.more-products-overlay small {
+  color: #f1f5fa;
+}
+.catalog-menu-footer {
+  background: #fff;
+}
+.catalog-menu-footer > span {
+  color: #102746;
+}
+.catalog-menu-footer > span svg {
+  color: #866300;
+}
+
+/* Catalog modal and poster viewer controls: visible on both desktop and mobile. */
+.catalog-modal {
+  background: #f8faff;
+  color: #102746;
+  border: 1px solid #c4cfde;
+}
+.catalog-modal-header h2,
+.catalog-modal-item strong {
+  color: #102746;
+}
+.catalog-modal-header h2 em {
+  color: #8d6800;
+}
+.catalog-modal-header p {
+  color: #52647a;
+}
+.catalog-modal-close {
+  background: #102746;
+  border: 1px solid #102746;
+  color: #fff;
+}
+.catalog-modal-close:hover {
+  background: #1b3c65;
+}
+.catalog-modal-item {
+  background: #fff;
+  border-color: #cbd5e2;
+}
+.catalog-modal-item b {
+  color: #805d00;
+}
+.poster-lightbox-info {
+  color: #102746;
+}
+.poster-lightbox-info h2 {
+  color: #102746;
+}
+.poster-lightbox-info strong {
+  color: #805d00;
+}
+
+/* Location, map overlay, contact, and footer contrast. */
+.location-line {
+  color: #30465f;
+}
+.location-line svg {
+  color: #8a6600;
+}
+.map-open-link {
+  background: #fff;
+  color: #102746;
+  border: 1px solid #d0d9e5;
+}
+.connect-panel {
+  background:
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(245, 196, 0, 0.18),
+      transparent 35%
+    ),
+    linear-gradient(120deg, #fff 0%, #edf2f8 100%);
+}
+.connect-copy p {
+  color: #4d6078;
+}
+.qr-area > span {
+  color: #785800;
+}
+.qr-area > small {
+  color: #52647a;
+}
+.footer p,
+.footer-links a,
+.footer-links button {
+  color: #455971;
+}
+.footer-links svg {
+  color: #866300;
+}
+.copyright {
+  color: #596b80;
+}
+
+/* Keep the bottom menu navy, but raise inactive icon/label contrast. */
+.bottom-menu {
+  background: linear-gradient(100deg, #0c2340 0%, #1b3c65 100%);
+  border-top: 1px solid #405a79;
+}
+.bottom-menu-item {
+  color: #e6edf6;
+}
+.bottom-menu-item small {
+  color: inherit;
+}
+.bottom-menu-item.active {
+  color: #ffdc35;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #c59b00;
+}
+.bottom-menu-item.active span {
+  color: #ffdc35;
+}
+.bottom-menu-item:hover {
+  color: #fff;
+}
+
+/* Loader and QR fallback modal. */
+.brand-loader {
+  color: #102746;
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(245, 196, 0, 0.15),
+      transparent 34%
+    ),
+    linear-gradient(180deg, #f8faff, #e5ebf4);
+}
+.brand-loader > small {
+  color: #785800;
+}
+.brand-loader p {
+  color: #52647a;
+}
+.loader-track {
+  background: #cbd5e2;
+}
+.loader-track span {
+  background: linear-gradient(90deg, #1b3c65, #f5c400);
+}
+.qr-modal {
+  background: #fff;
+  color: #102746;
+}
+.qr-modal a {
+  color: #785800;
+}
+
+/* Keyboard focus remains obvious and accessible. */
+:where(a, button, iframe):focus-visible {
+  outline: 3px solid #d7a900;
+  outline-offset: 3px;
+}
+
+@media (max-width: 650px) {
+  .nav {
+    background: #fff;
+    border-color: #cbd5e2;
+  }
+  .catalog-modal-backdrop,
+  .poster-lightbox-backdrop {
+    padding: 10px;
+  }
+  .catalog-modal {
+    padding: 16px;
+  }
+  .catalog-modal-close {
+    color: #fff;
   }
 }

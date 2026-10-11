@@ -23,7 +23,7 @@ import {
   X,
   Phone,
 } from "lucide-react";
-import logo from "./assets/baste-logo.jpg";
+import logo from "./assets/baste-logo.png";
 import "./styles.css";
 
 const FACEBOOK_URL = "https://www.facebook.com/Basteebike";
