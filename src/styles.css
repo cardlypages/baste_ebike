@@ -2373,3 +2373,116 @@ main {
     width: 100%;
   }
 }
+
+/* Branded loading screen shown after NFC entry and during bottom-menu changes */
+.brand-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(242, 197, 26, 0.09),
+      transparent 34%
+    ),
+    #101010;
+  color: #f5f3ed;
+  animation: loaderIn 0.18s ease-out;
+}
+.loader-logo-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 78px;
+  height: 78px;
+  margin-bottom: 8px;
+}
+.loader-logo-wrap img {
+  width: 62px;
+  height: 62px;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+  border-radius: 50%;
+  padding: 2px;
+  border: 1px solid #e33a32;
+}
+.loader-ring {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(242, 197, 26, 0.16);
+  border-top-color: #f2c51a;
+  border-right-color: #e33a32;
+  border-radius: 50%;
+  animation: basteSpin 0.8s linear infinite;
+}
+.brand-loader > strong {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.17em;
+  line-height: 1.1;
+}
+.brand-loader > small {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  color: #f2c51a;
+}
+.loader-track {
+  width: 128px;
+  height: 3px;
+  overflow: hidden;
+  background: #343434;
+  border-radius: 99px;
+  margin-top: 14px;
+}
+.loader-track span {
+  display: block;
+  width: 42%;
+  height: 100%;
+  background: linear-gradient(90deg, #e33a32, #f2c51a);
+  border-radius: 99px;
+  animation: loaderProgress 0.9s ease-in-out infinite;
+}
+.brand-loader p {
+  margin: 5px 0 0;
+  color: #aaa59b;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+@keyframes basteSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loaderProgress {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(340%);
+  }
+}
+@keyframes loaderIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loader-ring,
+  .loader-track span {
+    animation-duration: 2s;
+  }
+  .brand-loader {
+    animation: none;
+  }
+}

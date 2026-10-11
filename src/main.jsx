@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { QRCodeSVG } from "qrcode.react";
 import {
@@ -27,6 +27,7 @@ import logo from "./assets/baste-logo.jpg";
 import "./styles.css";
 
 const FACEBOOK_URL = "https://www.facebook.com/Basteebike";
+const MESSENGER_URL = "https://m.me/Basteebike";
 const YOUTUBE_URL = "https://www.youtube.com/@Basteebikeofficial";
 const WAZE_URL =
   "https://waze.com/ul?q=GD%20Plaza%20infront%20of%20WalterMart%20Guiguinto%20Bulacan";
@@ -117,6 +118,21 @@ const PRODUCTS = [
 
 function App() {
   const [activeTab, setActiveTab] = useState("home");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const initialLoader = window.setTimeout(() => setIsLoading(false), 900);
+    return () => window.clearTimeout(initialLoader);
+  }, []);
+
+  const navigateToTab = (tab) => {
+    if (tab === activeTab) return;
+    setIsLoading(true);
+    window.setTimeout(() => {
+      setActiveTab(tab);
+      setIsLoading(false);
+    }, 280);
+  };
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showQr, setShowQr] = useState(false);
@@ -137,6 +153,25 @@ function App() {
 
   return (
     <main>
+      {isLoading && (
+        <div
+          className="brand-loader"
+          role="status"
+          aria-live="polite"
+          aria-label="Loading Baste E-bike and E-car"
+        >
+          <div className="loader-logo-wrap">
+            <img src={logo} alt="" />
+            <span className="loader-ring" />
+          </div>
+          <strong>BASTE</strong>
+          <small>EBIKE & ECAR</small>
+          <div className="loader-track">
+            <span />
+          </div>
+          <p>Preparing your ride...</p>
+        </div>
+      )}
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
       <header className="topbar">
@@ -172,7 +207,7 @@ function App() {
               <div className="hero-actions">
                 <a
                   className="btn btn-gold"
-                  href="https://m.me/Basteebike"
+                  href={MESSENGER_URL}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -453,10 +488,11 @@ function App() {
                 </h2>
                 <p>
                   Ask about available units, latest prices, and current offers.
-                  Call or message us on Facebook.
+                  Call 0936 380 3524 or 0936 380 3523, or message us on
+                  Facebook.
                 </p>
                 <div className="contact-actions">
-                  <a className="btn btn-outline" href="tel:09363803524">
+                  <a className="btn btn-gold" href="tel:09363803524">
                     <Phone size={17} /> Call 0936 380 3524
                   </a>
                   <a className="btn btn-outline" href="tel:09363803523">
@@ -464,7 +500,7 @@ function App() {
                   </a>
                   <a
                     className="btn btn-dark"
-                    href="https://m.me/Basteebike"
+                    href={MESSENGER_URL}
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -526,7 +562,7 @@ function App() {
               ? "bottom-menu-item active"
               : "bottom-menu-item"
           }
-          onClick={() => setActiveTab("home")}
+          onClick={() => navigateToTab("home")}
         >
           <span>
             <Zap size={19} />
@@ -539,7 +575,7 @@ function App() {
               ? "bottom-menu-item active"
               : "bottom-menu-item"
           }
-          onClick={() => setActiveTab("cars")}
+          onClick={() => navigateToTab("cars")}
         >
           <span>
             <CarFront size={20} />
@@ -552,7 +588,7 @@ function App() {
               ? "bottom-menu-item active"
               : "bottom-menu-item"
           }
-          onClick={() => setActiveTab("location")}
+          onClick={() => navigateToTab("location")}
         >
           <span>
             <MapPin size={19} />
@@ -565,7 +601,7 @@ function App() {
               ? "bottom-menu-item active"
               : "bottom-menu-item"
           }
-          onClick={() => setActiveTab("contact")}
+          onClick={() => navigateToTab("contact")}
         >
           <span>
             <MessageCircle size={19} />
