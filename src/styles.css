@@ -71,33 +71,83 @@ main {
   position: relative;
   z-index: 5;
 }
+
+/* Baste navbar branding */
 .brand-lockup {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 11px;
+  justify-content: flex-start;
+  gap: 12px;
+  flex-shrink: 0;
+  min-width: 0;
+  white-space: nowrap;
+  line-height: 1;
+  text-decoration: none;
 }
+
 .brand-lockup img {
-  width: 44px;
-  height: 44px;
+  display: block;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  object-fit: contain;
+  object-position: center;
   border-radius: 50%;
-  object-fit: cover;
+  background: #fff;
   border: 1px solid #e33a32;
+  padding: 2px;
 }
+
 .brand-lockup span {
-  display: grid;
-  gap: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 5px;
 }
+
 .brand-lockup strong {
-  font:
-    800 16px Manrope,
-    sans-serif;
+  color: #f5f3ed;
+  font-size: 18px;
+  font-weight: 800;
   letter-spacing: 0.12em;
+  line-height: 1;
 }
+
 .brand-lockup small {
+  color: #f2c51a;
   font-size: 9px;
-  letter-spacing: 0.22em;
-  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1.2;
 }
+
+/* Keep the header compact */
+.navbar {
+  min-height: 76px;
+  padding: 10px 0;
+}
+
+@media (max-width: 480px) {
+  .brand-lockup {
+    gap: 9px;
+  }
+
+  .brand-lockup img {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+  }
+
+  .brand-lockup strong {
+    font-size: 16px;
+  }
+
+  .brand-lockup small {
+    font-size: 8px;
+  }
+}
+
 .nav {
   display: flex;
   align-items: center;
