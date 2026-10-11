@@ -488,8 +488,7 @@ function App() {
                 </h2>
                 <p>
                   Ask about available units, latest prices, and current offers.
-                  Call 0936 380 3524 or 0936 380 3523, or message us on
-                  Facebook.
+                  Call or message us on Facebook.
                 </p>
                 <div className="contact-actions">
                   <a className="btn btn-gold" href="tel:09363803524">
