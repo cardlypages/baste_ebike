@@ -402,7 +402,7 @@ function App() {
                   <span>+</span>
                 </div>
                 <div>
-                  <strong>179K followers</strong>
+                  <strong>180K+ followers</strong>
                   <small>Join the Baste community on Facebook</small>
                 </div>
               </div>
