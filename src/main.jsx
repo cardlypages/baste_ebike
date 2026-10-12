@@ -4,7 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import {
   ArrowDownRight,
   ArrowRight,
-  Bike,
+  Truck,
   CarFront,
   MapPin,
   Youtube,
@@ -989,7 +989,7 @@ function App() {
                 className={catalogCategory === "big-tires" ? "active" : ""}
                 onClick={() => setCatalogCategory("big-tires")}
               >
-                <Bike size={17} /> Big Tires & Cargo <span>7</span>
+                <Truck size={17} /> Big Tires & Cargo <span>7</span>
               </button>
             </div>
             <div className="catalog-modal-grid">
