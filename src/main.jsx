@@ -297,24 +297,63 @@ function App() {
         <div className="tab-panel home-panel">
           <section className="hero section-wrap" id="home">
             <div className="hero-copy reveal">
-              <div className="hero-brand-tagline">
+              <div className="hero-brand-tagline hero-logo-socials">
                 <div className="hero-brand-mark">
-                  <img src={logo} alt="Baste E-bike and E-car logo" />
+                  <img
+                    src={logo}
+                    alt="Baste E-bike and E-car — full brand logo"
+                  />
                 </div>
-                <div className="hero-tagline-copy">
-                  <div className="eyebrow">
-                    <span className="pulse-dot" /> ELECTRIC CAR DEALER •
-                    GUIGUINTO, BULACAN
-                  </div>
-                  <h1>
-                    Drive smarter.
-                    <br />
-                    <em>Live greener.</em>
-                  </h1>
-                  <p className="hero-lead">
-                    Discover compact electric cars for everyday city driving,
-                    with model options and prices to fit different needs.
-                  </p>
+                <div
+                  className="hero-social-accounts"
+                  aria-label="Baste social media accounts"
+                >
+                  <span className="hero-social-heading">FOLLOW BASTE</span>
+                  <a
+                    href={FACEBOOK_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Visit Baste on Facebook"
+                  >
+                    <span className="hero-social-icon">
+                      <Facebook size={20} />
+                    </span>
+                    <span>
+                      <strong>Facebook</strong>
+                      <small>@Basteebike</small>
+                    </span>
+                    <ArrowRight size={16} />
+                  </a>
+                  <a
+                    href={TIKTOK_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Visit Baste on TikTok"
+                  >
+                    <span className="hero-social-icon">
+                      <Music2 size={20} />
+                    </span>
+                    <span>
+                      <strong>TikTok</strong>
+                      <small>@iamlolmumai</small>
+                    </span>
+                    <ArrowRight size={16} />
+                  </a>
+                  <a
+                    href={YOUTUBE_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Visit Baste on YouTube"
+                  >
+                    <span className="hero-social-icon">
+                      <Youtube size={20} />
+                    </span>
+                    <span>
+                      <strong>YouTube</strong>
+                      <small>Baste E-bike & E-car</small>
+                    </span>
+                    <ArrowRight size={16} />
+                  </a>
                 </div>
               </div>
               <div className="hero-actions">
