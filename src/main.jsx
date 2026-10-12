@@ -22,13 +22,25 @@ import {
   Menu,
   X,
   Phone,
+  Contact,
+  Download,
+  Music2,
+  Globe,
+  MapPinned,
 } from "lucide-react";
 import logo from "./assets/baste-logo.png";
+import promoPoster from "./assets/pamaskong-handog.png";
 import "./styles.css";
 
 const FACEBOOK_URL = "https://www.facebook.com/Basteebike";
 const MESSENGER_URL = "https://m.me/Basteebike";
-const YOUTUBE_URL = "https://www.youtube.com/@Basteebikeofficial";
+const YOUTUBE_URL = "https://www.youtube.com/channel/UCbl_qJ6uZH3Cwl_NzgHwDRA";
+const TIKTOK_URL = "https://www.tiktok.com/@iamlolmumai";
+const PHONE_NUMBERS = [
+  { label: "0976 658 3752", dial: "09766583752" },
+  { label: "0936 380 3524", dial: "09363803524" },
+  { label: "0936 380 3523", dial: "09363803523" },
+];
 const WAZE_URL =
   "https://waze.com/ul?q=GD%20Plaza%20infront%20of%20WalterMart%20Guiguinto%20Bulacan";
 const LOCATION =
@@ -116,6 +128,61 @@ const PRODUCTS = [
   },
 ];
 
+// Additional Big Tires and cargo models from the newly supplied promotional posters.
+const BIG_TIRE_PRODUCTS = [
+  {
+    name: "Prada Closed Back",
+    image: "prada-closed-back.jpg",
+    price: "See poster for price",
+    label: "CLOSED-BACK E-TRIKE",
+    category: "big-tires",
+  },
+  {
+    name: "Monster Cargo 2-in-1",
+    image: "monster-cargo-2in1.jpg",
+    price: "₱139,999 / ₱169,999",
+    label: "CARGO • 8–10 SEATER",
+    category: "big-tires",
+  },
+  {
+    name: "Beast Cargo",
+    image: "beast-cargo.jpg",
+    price: "₱169,999 / ₱189,999",
+    label: "CARGO E-TRIKE",
+    category: "big-tires",
+  },
+  {
+    name: "Raptor",
+    image: "raptor.jpg",
+    price: "₱149,999",
+    label: "PASSENGER E-TRIKE",
+    category: "big-tires",
+  },
+  {
+    name: "Hummer Version 2",
+    image: "hummer-v2.jpg",
+    price: "₱124,999",
+    label: "PASSENGER E-TRIKE",
+    category: "big-tires",
+  },
+  {
+    name: "Tanker",
+    image: "tanker.jpg",
+    price: "₱109,999",
+    label: "BIG-TIRE E-TRIKE",
+    category: "big-tires",
+  },
+  {
+    name: "Raptor V3 Solar",
+    image: "raptor-v3-solar.jpg",
+    price: "₱129,999",
+    label: "SOLAR • 4 DOOR",
+    category: "big-tires",
+  },
+];
+
+const BIG_TIRE_IMAGE_PATH = (image) => `/images/products/big-tires/${image}`;
+
 function App() {
   const [activeTab, setActiveTab] = useState("home");
   const [isLoading, setIsLoading] = useState(true);
@@ -137,7 +204,12 @@ function App() {
   const [copied, setCopied] = useState(false);
   const [showQr, setShowQr] = useState(false);
   const [showAllProducts, setShowAllProducts] = useState(false);
+  const [catalogCategory, setCatalogCategory] = useState("ecars");
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const openCatalog = (category = "ecars") => {
+    setCatalogCategory(category);
+    setShowAllProducts(true);
+  };
 
   const copyLink = async () => {
     try {
@@ -147,6 +219,32 @@ function App() {
     } catch {
       setShowQr(true);
     }
+  };
+
+  const saveContact = () => {
+    const vcard = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      "N:Baste E-bike & E-car;;;;",
+      "FN:Baste E-bike & E-car",
+      "ORG:Baste E-bike & E-car",
+      ...PHONE_NUMBERS.map((phone) => `TEL;TYPE=CELL,VOICE:${phone.dial}`),
+      `ADR;TYPE=WORK:;;GD Plaza, in front of WalterMart Guiguinto, beside Yamaha Guiguinto;Guiguinto;Bulacan;;Philippines`,
+      `URL:${FACEBOOK_URL}`,
+      `URL:${TIKTOK_URL}`,
+      `URL:${YOUTUBE_URL}`,
+      "NOTE:Electric bike, electric car, and big-tire e-trike dealer. Payment methods: Cash on Delivery, GCash, Bank Transfer, Credit Card, Home Credit.",
+      "END:VCARD",
+    ].join("\r\n");
+    const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "Baste-Ebike-Ecar.vcf";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
   };
 
   const closeMenu = () => setMenuOpen(false);
@@ -174,36 +272,51 @@ function App() {
       )}
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
-      <header className="topbar">
-        <a className="brand-lockup" href="#home" onClick={closeMenu}>
-          <img src={logo} alt="Baste Ebike & Ecar logo" />
-          <span>
-            <strong>BASTE</strong>
-            <small>EBIKE & ECAR</small>
-          </span>
-        </a>
-        <a className="topbar-contact" href="tel:09363803524">
-          <MessageCircle size={16} /> Call Baste <span>0936 380 3524</span>
-        </a>
-      </header>
+      {activeTab !== "home" && (
+        <header className="topbar">
+          <a
+            className="brand-lockup"
+            href="#home"
+            onClick={() => navigateToTab("home")}
+          >
+            <img src={logo} alt="Baste Ebike & Ecar logo" />
+            <span>
+              <strong>BASTE</strong>
+              <small>EBIKE & ECAR</small>
+            </span>
+          </a>
+
+          <a className="topbar-contact" href="tel:09363803524">
+            <MessageCircle size={16} />
+            Call Baste <span>0936 380 3524</span>
+          </a>
+        </header>
+      )}
 
       {activeTab === "home" && (
         <div className="tab-panel home-panel">
           <section className="hero section-wrap" id="home">
             <div className="hero-copy reveal">
-              <div className="eyebrow">
-                <span className="pulse-dot" /> ELECTRIC CAR DEALER • GUIGUINTO,
-                BULACAN
+              <div className="hero-brand-tagline">
+                <div className="hero-brand-mark">
+                  <img src={logo} alt="Baste E-bike and E-car logo" />
+                </div>
+                <div className="hero-tagline-copy">
+                  <div className="eyebrow">
+                    <span className="pulse-dot" /> ELECTRIC CAR DEALER •
+                    GUIGUINTO, BULACAN
+                  </div>
+                  <h1>
+                    Drive smarter.
+                    <br />
+                    <em>Live greener.</em>
+                  </h1>
+                  <p className="hero-lead">
+                    Discover compact electric cars for everyday city driving,
+                    with model options and prices to fit different needs.
+                  </p>
+                </div>
               </div>
-              <h1>
-                Drive smarter.
-                <br />
-                <em>Live greener.</em>
-              </h1>
-              <p className="hero-lead">
-                Discover compact electric cars for everyday city driving, with
-                model options and prices to fit different needs.
-              </p>
               <div className="hero-actions">
                 <a
                   className="btn btn-gold"
@@ -255,35 +368,85 @@ function App() {
                 </div>
               </div>
             </div>
+          </section>
 
-            <div className="hero-visual reveal delay-one">
-              <div className="visual-orbit orbit-a" />
-              <div className="visual-orbit orbit-b" />
-              <div className="hero-logo-card">
-                <div className="logo-glow" />
-                <img src={logo} alt="Baste E-bike shop emblem" />
-                <div className="logo-caption">
-                  <span>BASTE</span>
-                  <span>ELECTRIC • EVERYDAY</span>
-                </div>
-              </div>
-              <div className="float-card float-card-top">
-                <Zap size={17} />
-                <span>
-                  <b>Go electric</b>
-                  <small>Move smarter</small>
-                </span>
-              </div>
-              <div className="float-card float-card-bottom">
-                <BatteryCharging size={18} />
-                <span>
-                  <b>Everyday mobility</b>
-                  <small>Find your next ride</small>
-                </span>
-              </div>
-              <div className="visual-spark spark-one">✦</div>
-              <div className="visual-spark spark-two">✧</div>
+          <section
+            className="home-showcase section-wrap"
+            aria-label="Baste vehicle lineup photos"
+          >
+            <div className="home-showcase-heading">
+              <span className="eyebrow">ON OUR LOT</span>
+              <strong>See the Baste lineup.</strong>
             </div>
+            <div className="home-showcase-grid">
+              <button
+                type="button"
+                className="home-showcase-card"
+                onClick={() => navigateToTab("cars")}
+                aria-label="Explore the Baste e-car models"
+              >
+                <img
+                  src="/images/showcase/baste-lineup-white-cars.jpg"
+                  alt="A lineup of compact electric cars available to view at Baste in Guiguinto"
+                  loading="eager"
+                />
+                <span className="showcase-caption">
+                  <span>COMPACT E-CARS</span>
+                  <strong>
+                    Find your everyday ride{" "}
+                    <ArrowRight size={12} aria-hidden="true" />
+                  </strong>
+                </span>
+              </button>
+              <button
+                type="button"
+                className="home-showcase-card"
+                onClick={() => openCatalog("ecars")}
+                aria-label="Open the full catalog of Baste e-car models"
+              >
+                <img
+                  src="/images/showcase/baste-lineup-orange-car.jpg"
+                  alt="Baste vehicle lineup with an orange electric car and other compact e-cars"
+                  loading="eager"
+                />
+                <span className="showcase-caption">
+                  <span>MORE OPTIONS</span>
+                  <strong>
+                    Explore all 14 models{" "}
+                    <ArrowRight size={12} aria-hidden="true" />
+                  </strong>
+                </span>
+              </button>
+            </div>
+          </section>
+
+          <section
+            className="promo-section section-wrap"
+            aria-labelledby="holiday-promo-title"
+          >
+            <div className="promo-section-heading">
+              <span className="eyebrow">ONGOING CUSTOMER PROMO</span>
+              <h2 id="holiday-promo-title">
+                Pamaskong Handog <em>ng Baste.</em>
+              </h2>
+              <p>
+                Buy any unit and get one raffle entry. Promo details and
+                eligibility should be confirmed with the Baste team.
+              </p>
+            </div>
+            <a
+              className="promo-poster-link"
+              href={promoPoster}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open the full Pamaskong Handog promo poster"
+            >
+              <img
+                src={promoPoster}
+                alt="Baste Pamaskong Handog promo poster: buy any unit and get one raffle entry, with Noche Buena packages, cash prizes, a staycation prize, and an e-bike grand prize"
+                loading="lazy"
+              />
+            </a>
           </section>
 
           <section className="stats section-wrap" id="about">
@@ -344,7 +507,7 @@ function App() {
                   key={product.image}
                   onClick={() =>
                     index === 5
-                      ? setShowAllProducts(true)
+                      ? openCatalog("ecars")
                       : setSelectedProduct(product)
                   }
                   aria-label={
@@ -376,14 +539,22 @@ function App() {
             </div>
             <div className="catalog-menu-footer">
               <span>
-                <CarFront size={17} /> 14 E-CAR MODELS
+                <CarFront size={17} /> 14 E-CAR MODELS + 7 BIG-TIRE MODELS
               </span>
-              <button
-                className="btn btn-gold"
-                onClick={() => setShowAllProducts(true)}
-              >
-                Browse All Models <ArrowRight size={16} />
-              </button>
+              <div className="catalog-footer-actions">
+                <button
+                  className="btn btn-outline"
+                  onClick={() => openCatalog("big-tires")}
+                >
+                  Big Tires & Cargo <ArrowRight size={16} />
+                </button>
+                <button
+                  className="btn btn-gold"
+                  onClick={() => openCatalog("ecars")}
+                >
+                  Browse E-Cars <ArrowRight size={16} />
+                </button>
+              </div>
             </div>
             <div className="catalog-banner">
               <div className="catalog-banner-icon">
@@ -413,6 +584,29 @@ function App() {
                 availability with Baste before purchase.
               </span>
             </div>
+            <section
+              className="payment-methods payment-methods-catalog"
+              aria-labelledby="payment-methods-title"
+            >
+              <div className="payment-section-heading">
+                <span className="eyebrow">FLEXIBLE PAYMENT OPTIONS</span>
+                <h2 id="payment-methods-title">
+                  Ways to <em>pay.</em>
+                </h2>
+                <p>
+                  Choose from the payment methods offered by Baste. Confirm
+                  eligibility, terms, and availability with the shop before
+                  placing your order.
+                </p>
+              </div>
+              <div className="payment-method-list">
+                <span>💵 Cash on Delivery (COD)</span>
+                <span>GCash</span>
+                <span>Bank Transfer</span>
+                <span>Credit Card</span>
+                <span>Home Credit</span>
+              </div>
+            </section>
           </section>
         </div>
       )}
@@ -477,80 +671,176 @@ function App() {
 
       {activeTab === "contact" && (
         <div className="tab-panel contact-panel">
-          <section className="connect section-wrap">
-            <div className="connect-panel">
-              <div className="connect-copy">
-                <span className="eyebrow">LET’S GET YOU MOVING</span>
-                <h2>
-                  Your next ride
-                  <br />
-                  <em>is one message away.</em>
-                </h2>
-                <p>
-                  Ask about available units, latest prices, and current offers.
-                  Call or message us on Facebook.
-                </p>
-                <div className="contact-actions">
-                  <a className="btn btn-gold" href="tel:09363803524">
-                    <Phone size={17} /> Call 0936 380 3524
-                  </a>
-                  <a className="btn btn-outline" href="tel:09363803523">
-                    <Phone size={17} /> Call 0936 380 3523
-                  </a>
+          <section className="contact-page section-wrap">
+            <header className="contact-page-heading">
+              <span className="eyebrow">CONNECT WITH BASTE</span>
+              <h1>
+                Let’s keep in <em>touch.</em>
+              </h1>
+              <p>
+                Save our details to your phone or choose a channel below to
+                reach Baste E-bike & E-car.
+              </p>
+            </header>
+
+            <section
+              className="save-contact-card"
+              aria-labelledby="save-contact-title"
+            >
+              <div className="save-contact-brand">
+                <div className="save-contact-logo">
+                  <img src={logo} alt="Baste E-bike & E-car logo" />
+                </div>
+                <div>
+                  <span className="eyebrow">BASTE • GUIGUINTO, BULACAN</span>
+                  <h2 id="save-contact-title">Baste E-bike & E-car</h2>
+                  <p>Electric mobility for everyday journeys.</p>
+                </div>
+              </div>
+              <button
+                className="btn btn-gold save-contact-button"
+                onClick={saveContact}
+              >
+                <Contact size={19} /> Save Contact to Phone{" "}
+                <Download size={17} />
+              </button>
+              <div className="contact-phone-list">
+                {PHONE_NUMBERS.map((phone, index) => (
                   <a
-                    className="btn btn-dark"
-                    href={MESSENGER_URL}
-                    target="_blank"
-                    rel="noreferrer"
+                    className="contact-phone-card"
+                    href={`tel:${phone.dial}`}
+                    key={phone.dial}
                   >
-                    <MessageCircle size={18} /> Chat with Baste{" "}
+                    <span className="contact-phone-icon">
+                      <Phone size={18} />
+                    </span>
+                    <span>
+                      <small>
+                        {index === 0 ? "ALTERNATE CONTACT" : "CALL / VIBER"}
+                      </small>
+                      <strong>{phone.label}</strong>
+                    </span>
                     <ArrowRight size={17} />
                   </a>
-                </div>
+                ))}
               </div>
-              <div className="qr-area">
-                <div className="qr-frame">
-                  <QRCodeSVG
-                    value={FACEBOOK_URL}
-                    size={148}
-                    bgColor="#ffffff"
-                    fgColor="#101010"
-                    level="H"
-                    includeMargin
-                  />
-                </div>
-                <span>SCAN TO OPEN FACEBOOK</span>
-                <small>Save this page for quick access</small>
+              <div className="contact-address">
+                <MapPinned size={18} />
+                <span>
+                  <strong>Visit our showroom</strong>
+                  <small>
+                    GD Plaza, in front of WalterMart Guiguinto, beside Yamaha
+                    Guiguinto, Bulacan
+                  </small>
+                </span>
+                <a
+                  href={WAZE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Get directions"
+                >
+                  <Navigation size={17} />
+                </a>
               </div>
+              <p className="vcard-note">
+                The contact file includes all three phone numbers, our location,
+                and Facebook, TikTok, and YouTube links.
+              </p>
+            </section>
+
+            <section
+              className="social-accounts-section"
+              aria-labelledby="social-accounts-title"
+            >
+              <div className="social-section-heading">
+                <div>
+                  <span className="eyebrow">FOLLOW OUR UPDATES</span>
+                  <h2 id="social-accounts-title">
+                    Find us on <em>socials.</em>
+                  </h2>
+                </div>
+                <p>
+                  See new arrivals, promos, and featured units on our official
+                  channels.
+                </p>
+              </div>
+              <div className="social-account-grid">
+                <a
+                  className="social-account-card facebook-account"
+                  href={FACEBOOK_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="social-account-icon">
+                    <Facebook size={24} />
+                  </span>
+                  <span className="social-account-copy">
+                    <small>FOLLOW OUR PAGE</small>
+                    <strong>Facebook</strong>
+                    <em>@Basteebike</em>
+                  </span>
+                  <span className="social-account-arrow">
+                    <ArrowRight size={18} />
+                  </span>
+                </a>
+                <a
+                  className="social-account-card tiktok-account"
+                  href={TIKTOK_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="social-account-icon">
+                    <Music2 size={24} />
+                  </span>
+                  <span className="social-account-copy">
+                    <small>WATCH OUR VIDEOS</small>
+                    <strong>TikTok</strong>
+                    <em>@iamlolmumai</em>
+                  </span>
+                  <span className="social-account-arrow">
+                    <ArrowRight size={18} />
+                  </span>
+                </a>
+                <a
+                  className="social-account-card youtube-account"
+                  href={YOUTUBE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="social-account-icon">
+                    <Youtube size={24} />
+                  </span>
+                  <span className="social-account-copy">
+                    <small>WATCH & SUBSCRIBE</small>
+                    <strong>YouTube</strong>
+                    <em>Baste E-bike & E-car</em>
+                  </span>
+                  <span className="social-account-arrow">
+                    <ArrowRight size={18} />
+                  </span>
+                </a>
+              </div>
+            </section>
+
+            <div className="contact-bottom-note">
+              <MessageCircle size={19} />
+              <span>
+                <strong>Ready to find your next ride?</strong>
+                <small>
+                  Message us to confirm current prices, promos, payment options,
+                  and unit availability.
+                </small>
+              </span>
+              <a
+                className="btn btn-dark"
+                href="https://m.me/Basteebike"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Message Baste <ArrowRight size={16} />
+              </a>
             </div>
           </section>
-
-          <footer className="footer section-wrap">
-            <a className="brand-lockup footer-brand" href="#home">
-              <img src={logo} alt="Baste logo" />
-              <span>
-                <strong>BASTE</strong>
-                <small>EBIKE & ECAR</small>
-              </span>
-            </a>
-            <p>Electric mobility for everyday journeys.</p>
-            <div className="footer-links">
-              <a href={FACEBOOK_URL} target="_blank" rel="noreferrer">
-                <Facebook size={17} /> Facebook
-              </a>
-              <a href={YOUTUBE_URL} target="_blank" rel="noreferrer">
-                <Youtube size={17} /> YouTube
-              </a>
-              <button onClick={copyLink}>
-                {copied ? <Check size={16} /> : <Copy size={16} />}{" "}
-                {copied ? "Copied!" : "Copy Facebook link"}
-              </button>
-            </div>
-            <small className="copyright">
-              © {new Date().getFullYear()} Baste Ebike & Ecar. All rights
-              reserved.
-            </small>
-          </footer>
         </div>
       )}
 
@@ -619,16 +909,19 @@ function App() {
             className="catalog-modal"
             role="dialog"
             aria-modal="true"
-            aria-label="All Baste electric car models"
+            aria-label="Baste vehicle catalog"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="catalog-modal-header">
               <div>
-                <span className="eyebrow">BASTE E-CAR CATALOG</span>
+                <span className="eyebrow">BASTE VEHICLE CATALOG</span>
                 <h2>
                   Choose your <em>next ride.</em>
                 </h2>
-                <p>Tap any poster to view it larger and ask about the model.</p>
+                <p>
+                  Browse compact e-cars or explore our big-tire passenger and
+                  cargo models.
+                </p>
               </div>
               <button
                 className="catalog-modal-close"
@@ -638,27 +931,58 @@ function App() {
                 <X size={23} />
               </button>
             </div>
+            <div
+              className="catalog-category-switch"
+              role="tablist"
+              aria-label="Vehicle categories"
+            >
+              <button
+                role="tab"
+                aria-selected={catalogCategory === "ecars"}
+                className={catalogCategory === "ecars" ? "active" : ""}
+                onClick={() => setCatalogCategory("ecars")}
+              >
+                <CarFront size={17} /> E-Cars <span>14</span>
+              </button>
+              <button
+                role="tab"
+                aria-selected={catalogCategory === "big-tires"}
+                className={catalogCategory === "big-tires" ? "active" : ""}
+                onClick={() => setCatalogCategory("big-tires")}
+              >
+                <Bike size={17} /> Big Tires & Cargo <span>7</span>
+              </button>
+            </div>
             <div className="catalog-modal-grid">
-              {PRODUCTS.map((product) => (
-                <button
-                  className="catalog-modal-item"
-                  key={product.image}
-                  onClick={() => {
-                    setSelectedProduct(product);
-                    setShowAllProducts(false);
-                  }}
-                >
-                  <img
-                    src={`/images/products/${product.image}`}
-                    alt={`${product.name} poster`}
-                    loading="lazy"
-                  />
-                  <span>
-                    <strong>{product.name}</strong>
-                    <b>{product.price}</b>
-                  </span>
-                </button>
-              ))}
+              {(catalogCategory === "ecars" ? PRODUCTS : BIG_TIRE_PRODUCTS).map(
+                (product) => (
+                  <button
+                    className="catalog-modal-item"
+                    key={product.image}
+                    onClick={() => {
+                      setSelectedProduct({
+                        ...product,
+                        isBigTire: catalogCategory === "big-tires",
+                      });
+                      setShowAllProducts(false);
+                    }}
+                  >
+                    <img
+                      src={
+                        catalogCategory === "big-tires"
+                          ? BIG_TIRE_IMAGE_PATH(product.image)
+                          : `/images/products/${product.image}`
+                      }
+                      alt={`${product.name} promotional poster`}
+                      loading="lazy"
+                    />
+                    <span>
+                      <strong>{product.name}</strong>
+                      <b>{product.price}</b>
+                    </span>
+                  </button>
+                ),
+              )}
             </div>
           </section>
         </div>
@@ -685,7 +1009,11 @@ function App() {
               <X size={23} />
             </button>
             <img
-              src={`/images/products/${selectedProduct.image}`}
+              src={
+                selectedProduct.isBigTire
+                  ? BIG_TIRE_IMAGE_PATH(selectedProduct.image)
+                  : `/images/products/${selectedProduct.image}`
+              }
               alt={`${selectedProduct.name} promotional poster`}
             />
             <div className="poster-lightbox-info">
