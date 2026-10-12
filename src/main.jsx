@@ -543,16 +543,16 @@ function App() {
               </span>
               <div className="catalog-footer-actions">
                 <button
-                  className="btn btn-outline"
-                  onClick={() => openCatalog("big-tires")}
-                >
-                  Big Tires & Cargo <ArrowRight size={16} />
-                </button>
-                <button
                   className="btn btn-gold"
                   onClick={() => openCatalog("ecars")}
                 >
                   Browse E-Cars <ArrowRight size={16} />
+                </button>
+                <button
+                  className="btn btn-outline"
+                  onClick={() => openCatalog("big-tires")}
+                >
+                  Big Tires & Cargo <ArrowRight size={16} />
                 </button>
               </div>
             </div>
